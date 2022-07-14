@@ -138,11 +138,11 @@
     <!-- 添加或修改宿舍房间号对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="房号" prop="roomNumber" >
-          <el-input :disabled="true" v-model="form.roomNumber" placeholder="请输入房号" />
+        <el-form-item label="房号" prop="roomNumber">
+          <el-input :disabled="changRoomNumber" v-model="form.roomNumber" placeholder="请输入房号" />
         </el-form-item>
-        <el-form-item label="楼栋号" prop="roomDept" :disabled="true">
-          <el-input :disabled="true" v-model="form.roomDept" placeholder="请输入楼栋号" />
+        <el-form-item label="楼栋号" prop="roomDept">
+          <el-input :disabled="changeDept" v-model="form.roomDept" placeholder="请输入楼栋号" />
         </el-form-item>
         <el-form-item label="人数" prop="roomPeople">
           <el-input v-model="form.roomPeople" placeholder="请输入人数" />
@@ -189,6 +189,10 @@ export default {
         children: "children",
         label: "label"
       },
+      //房号是否可以修改
+      changRoomNumber:true,
+      //楼栋是否可以修改
+      changeDept: true,
       // 显示搜索条件
       showSearch: true,
       // 总条数
@@ -305,11 +309,15 @@ export default {
       this.reset();
       this.open = true;
       this.title = "添加宿舍房间号";
+      this.changeDept = false;
+      this.changRoomNumber = false;
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
       const roomId = row.roomId || this.ids
+      this.changeDept = true;
+      this.changRoomNumber = true;
       getRoom(roomId).then(response => {
         this.form = response.data;
         this.open = true;

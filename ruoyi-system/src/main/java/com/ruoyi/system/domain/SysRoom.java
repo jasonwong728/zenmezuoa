@@ -39,8 +39,7 @@ public class SysRoom extends BaseEntity
     @Excel(name = "联系电话", readConverterExp = "$column.readConverterExp()")
     private String roomPhoneNumber;
 
-
-    public void setRoomId(Long roomId) 
+    public void setRoomId(Long roomId)
     {
         this.roomId = roomId;
     }
